@@ -61,6 +61,12 @@ const className = Astro.props.class;
 
                     if (item.url.startsWith("mailto:")) {
                         const encodedEmail = Buffer.from(item.url.replace("mailto:", "")).toString("base64");
+                        if (item.popup) {
+                            return <a rel="me" aria-label={item.name} href="#" data-email-popup={encodedEmail} class={className}>
+                                <Icon is:inline name={item.icon} class="text-[1.5rem]"></Icon>
+                                {showName && item.name}
+                            </a>
+                        }
                         return <a rel="me" aria-label={item.name} href="#" data-encoded-email={encodedEmail} onclick={`
                                             (function() {
                                                 const encodedEmail = this.getAttribute('data-encoded-email');
@@ -88,6 +94,13 @@ const className = Astro.props.class;
             {profileConfig.links.length == 1 && (function(item){
                 if (item.url.startsWith("mailto:")) {
                         const encodedEmail = Buffer.from(item.url.replace("mailto:", "")).toString("base64");
+                        if (item.popup) {
+                            return <a rel="me" aria-label={item.name} href="#" data-email-popup={encodedEmail}
+                                                class="btn-regular rounded-lg h-10 gap-2 px-3 font-bold active:scale-95">
+                                <Icon is:inline name={item.icon} class="text-[1.5rem]"></Icon>
+                                {item.name}
+                            </a>
+                        }
                         return <a rel="me" aria-label={item.name} href="#" data-encoded-email={encodedEmail} onclick={`
                                             (function() {
                                                 const encodedEmail = this.getAttribute('data-encoded-email');
@@ -115,3 +128,83 @@ const className = Astro.props.class;
         </div>
   </div>
 </div>
+
+<script is:inline>
+(function () {
+	if (window.__ffEmailPopupBound) return;
+	window.__ffEmailPopupBound = true;
+
+	function openEmailPopup(encoded) {
+		let email = "";
+		try {
+			email = atob(encoded);
+		} catch (err) {
+			return;
+		}
+
+		document.querySelectorAll("[data-email-popup-modal]").forEach(function (el) {
+			el.remove();
+		});
+
+		var overlay = document.createElement("div");
+		overlay.setAttribute("data-email-popup-modal", "");
+		overlay.setAttribute("role", "dialog");
+		overlay.setAttribute("aria-modal", "true");
+		overlay.style.cssText =
+			"position:fixed;inset:0;z-index:1060;display:flex;align-items:center;justify-content:center;background:rgba(0,0,0,0.6);padding:16px;backdrop-filter:blur(2px);-webkit-backdrop-filter:blur(2px);";
+
+		var card = document.createElement("div");
+		card.className = "card-base";
+		card.style.cssText =
+			"width:100%;max-width:24rem;border-radius:1rem;padding:1.5rem;text-align:center;";
+		card.addEventListener("click", function (e) {
+			e.stopPropagation();
+		});
+
+		var title = document.createElement("div");
+		title.style.cssText = "font-weight:700;font-size:1.125rem;margin-bottom:0.5rem;";
+		title.textContent = "我的邮箱";
+
+		var emailBox = document.createElement("div");
+		emailBox.style.cssText =
+			"margin-bottom:1rem;border-radius:0.5rem;background:rgba(0,0,0,0.06);padding:0.5rem 0.75rem;font-family:ui-monospace,SFMono-Regular,Menlo,Consolas,monospace;font-size:0.875rem;word-break:break-all;user-select:all;";
+		emailBox.textContent = email;
+		if (document.documentElement.classList.contains("dark")) {
+			emailBox.style.background = "rgba(255,255,255,0.12)";
+		}
+
+		var btn = document.createElement("button");
+		btn.type = "button";
+		btn.className = "btn-regular";
+		btn.style.cssText = "border-radius:0.5rem;height:2.5rem;padding:0 1rem;font-weight:700;";
+		btn.textContent = "复制邮箱";
+		btn.addEventListener("click", async function () {
+			try {
+				await navigator.clipboard.writeText(email);
+				btn.textContent = "已复制";
+			} catch (err) {
+				btn.textContent = "复制失败";
+			}
+			setTimeout(function () {
+				btn.textContent = "复制邮箱";
+			}, 1500);
+		});
+
+		card.append(title, emailBox, btn);
+		overlay.appendChild(card);
+		overlay.addEventListener("click", function () {
+			overlay.remove();
+		});
+		document.body.appendChild(overlay);
+	}
+
+	document.addEventListener("click", function (e) {
+		var target = e.target;
+		if (!(target instanceof Element)) return;
+		var trigger = target.closest("[data-email-popup]");
+		if (!trigger) return;
+		e.preventDefault();
+		openEmailPopup(trigger.getAttribute("data-email-popup") || "");
+	});
+})();
+</script>
