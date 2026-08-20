@@ -5,6 +5,7 @@ tags: [Markdown, 博客, 演示]
 category: 文章示例
 draft: false
 slug: draft
+image: ./images/firefly1.avif
 ---
 
 学习大标题

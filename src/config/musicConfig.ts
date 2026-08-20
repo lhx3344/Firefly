@@ -18,7 +18,7 @@ export const musicPlayerConfig: MusicPlayerConfig = {
 	playMode: "list",
 
 	// 是否显启用歌词
-	showLyrics: false,
+	showLyrics: true,
 
 	// Meting API 配置
 	meting: {
@@ -26,7 +26,7 @@ export const musicPlayerConfig: MusicPlayerConfig = {
 		// 默认使用官方 API，也可以使用自定义 API
 		api: "https://api.i-meto.com/meting/api?server=:server&type=:type&id=:id&r=:r",
 		// 音乐平台：netease=网易云音乐, tencent=QQ音乐, kugou=酷狗音乐, xiami=虾米音乐, baidu=百度音乐
-		server: "netease",
+		server: "tencent",
 		// 类型：song=单曲, playlist=歌单, album=专辑, search=搜索, artist=艺术家
 		type: "playlist",
 		// 歌单/专辑/单曲 ID 或搜索关键词
@@ -53,6 +53,30 @@ export const musicPlayerConfig: MusicPlayerConfig = {
 				url: "/assets/music/使一颗心免于哀伤-哼唱.mp3",
 				cover: "/assets/music/cover/109951169585655912.webp",
 				lrc: "",
+			},
+			{
+				name:"JANE DOE",
+				artist:"米津玄师 / 宇多田光",
+				url:"/assets/music/JANE DOE.mp3",
+				cover:"/assets/music/cover/JANE DOE_0.jpg",
+			},
+			{
+				name:"Zenith",
+				artist:"KARAKURI",
+				url:"/assets/music/Zenith.mp3",
+				cover:"/assets/music/cover/Zenith_0.jpg",
+			},
+			{
+				name:"Liebesträume (爱之梦)",
+				artist:"Franz Liszt",
+				url:"/assets/music/Liebesträume (爱之梦).mp3",
+				cover:"/assets/music/cover/Liebesträume (爱之梦)_0.jpg",
+			},
+			{
+				name:"睡公主",
+				artist:"邓紫棋",
+				url:"/assets/music/睡公主.mp3",
+				cover:"/assets/music/cover/睡公主_0.jpg",
 			},
 		],
 	},
