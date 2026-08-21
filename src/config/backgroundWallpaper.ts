@@ -51,7 +51,6 @@ export const backgroundWallpaper: BackgroundWallpaperConfig = {
 		mobile: [
 			"assets/images/MobileWallpaper/mm1.avif",
 			"assets/images/MobileWallpaper/mm2.avif",
-			"assets/images/MobileWallpaper/mm3.avif",
 			"assets/images/MobileWallpaper/mm4.avif",
 			"assets/images/MobileWallpaper/mm5.avif",
 			"assets/images/MobileWallpaper/mm6.avif",
