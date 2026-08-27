@@ -1,9 +1,9 @@
 ---
-title: markdown-CVX1
+title: CVX1
 published: 2026-08-27
 description: '这是一篇关于Matlab工具箱CVX的学习笔记，用于后续的凸优化处理'
 image: ''
-tags: []
+tags: [凸优化，CVX]
 category: ''
 draft: false
 lang: ''
