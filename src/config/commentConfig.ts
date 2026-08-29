@@ -54,7 +54,7 @@ export const commentConfig: CommentConfig = {
 	//giscus评论系统配置
 	giscus: {
 		// 设置 Giscus 评论系统仓库
-		repo: "lhx3344/Firefly",
+		repo: "lhx3344/arrangelimit",
 		// 设置 Giscus 评论系统仓库ID
 		repoId: "R_kgDOT9Pkng",
 		// 设置 Giscus 评论系统分类
